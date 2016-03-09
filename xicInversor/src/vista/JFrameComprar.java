@@ -5,6 +5,14 @@
  */
 package vista;
 
+import com.arnau.persistencia.hibernate.HibernateUtil;
+import modelo.Empresa;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+
 /**
  *
  * @author Héctor Arnau
@@ -30,9 +38,8 @@ public class JFrameComprar extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel2 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList();
+        nombreEmpresa = new javax.swing.JTextField();
+        insertarEmpresa = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,14 +50,18 @@ public class JFrameComprar extends javax.swing.JFrame {
 
         jLabel2.setText("Empresa");
 
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
+        nombreEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreEmpresaActionPerformed(evt);
+            }
         });
-        jScrollPane1.setViewportView(jList1);
 
-        jScrollPane2.setViewportView(jScrollPane1);
+        insertarEmpresa.setText("Insertar");
+        insertarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                insertarEmpresaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -58,22 +69,24 @@ public class JFrameComprar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(29, 29, 29)
-                .addComponent(jLabel2)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(insertarEmpresa)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(nombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(166, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
-                        .addComponent(jLabel2)))
-                .addContainerGap(371, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(nombreEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(insertarEmpresa)
+                .addContainerGap(326, Short.MAX_VALUE))
         );
 
         pack();
@@ -84,6 +97,30 @@ public class JFrameComprar extends javax.swing.JFrame {
         VentanaPrincipal.Ventana.setEnabled(true);
         
     }//GEN-LAST:event_formWindowClosed
+
+    private void insertarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarEmpresaActionPerformed
+
+         HibernateUtil.buildSessionFactory();
+ 
+ 
+     
+             HibernateUtil.openSessionAndBindToThread();
+ 
+            try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
+                Empresa empresa=new Empresa(nombreEmpresa.getText());
+             Transaction beginTransaction = session.beginTransaction();
+                session.save(empresa);
+                
+                beginTransaction.commit();
+            }
+
+         HibernateUtil.closeSessionFactory();
+        
+    }//GEN-LAST:event_insertarEmpresaActionPerformed
+
+    private void nombreEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreEmpresaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreEmpresaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -114,6 +151,7 @@ public class JFrameComprar extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new JFrameComprar().setVisible(true);
             }
@@ -121,9 +159,8 @@ public class JFrameComprar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton insertarEmpresa;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JList jList1;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField nombreEmpresa;
     // End of variables declaration//GEN-END:variables
 }
