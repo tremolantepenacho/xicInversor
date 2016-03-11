@@ -100,21 +100,23 @@ public class JFrameComprar extends javax.swing.JFrame {
 
     private void insertarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarEmpresaActionPerformed
 
-         HibernateUtil.buildSessionFactory();
- 
- 
-     
-             HibernateUtil.openSessionAndBindToThread();
- 
-            try (Session session = HibernateUtil.getSessionFactory().getCurrentSession()) {
-                Empresa empresa=new Empresa(nombreEmpresa.getText());
-             Transaction beginTransaction = session.beginTransaction();
-                session.save(empresa);
-                
-                beginTransaction.commit();
-            }
+        
 
-         HibernateUtil.closeSessionFactory();
+         try {
+             HibernateUtil.openSessionAndBindToThread();
+             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+             Empresa empresa=new Empresa(nombreEmpresa.getText());
+             Transaction beginTransaction = session.beginTransaction();
+             session.save(empresa);
+                
+             beginTransaction.commit();
+            
+         } finally {
+             HibernateUtil.closeSessionAndUnbindFromThread();
+         }
+
+         
+        
         
     }//GEN-LAST:event_insertarEmpresaActionPerformed
 

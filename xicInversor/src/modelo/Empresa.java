@@ -8,7 +8,6 @@ package modelo;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import static javax.persistence.GenerationType.AUTO;
 
 /**
  *
@@ -22,8 +21,9 @@ public class Empresa implements Serializable{
 
     @Id
     @Column(name="Id")
-    @GeneratedValue(strategy = AUTO)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     private int id;
+    
 
     @Column(name="nombre")
     private String nombre;
@@ -32,6 +32,10 @@ public class Empresa implements Serializable{
         
     }
 
+    /**
+     *
+     * @param nombre
+     */
     public Empresa(String nombre) {
         this.nombre = nombre;
     }

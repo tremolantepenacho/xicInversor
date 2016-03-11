@@ -8,40 +8,22 @@ package com.arnau.persistencia.hibernate;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.boot.MetadataSources;
-import org.hibernate.boot.registry.StandardServiceRegistry;
-import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
 import org.hibernate.service.ServiceRegistry;
+import org.hibernate.service.ServiceRegistryBuilder;
 
-/**
- *
- * @author Héctor Arnau
- * @fecha 02/03/2016 09:06:44
- * @company DAM
- */
+public class HibernateUtil {
 
-
- public class HibernateUtil {
- 
-          private static SessionFactory sessionFactory;
+    private static SessionFactory sessionFactory;
  
       public static synchronized void buildSessionFactory() {
-          if (sessionFactory == null) {
-              
-              Configuration configuration = new Configuration();
-              configuration.configure("hibernate.cfg.xml");
-              
-        //      configuration.setProperty("hibernate.current_session_context_class", "thread");
-          //   ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
-            // sessionFactory = configuration.buildSessionFactory(serviceRegistry);
-             
-             StandardServiceRegistry registry = new StandardServiceRegistryBuilder()
-			.configure() // configures settings from hibernate.cfg.xml
-			.build();
-	
-		sessionFactory = new MetadataSources( registry ).buildMetadata().buildSessionFactory();
+        if (sessionFactory == null) {
+            Configuration configuration = new Configuration();
+             configuration.configure();
+             configuration.setProperty("hibernate.current_session_context_class", "thread");
+             ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
+             sessionFactory = configuration.buildSessionFactory(serviceRegistry);
          }
      }
 

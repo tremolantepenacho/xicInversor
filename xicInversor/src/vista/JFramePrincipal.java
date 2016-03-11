@@ -1,5 +1,7 @@
 package vista;
 
+import com.arnau.persistencia.hibernate.HibernateUtil;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -35,6 +37,11 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenu2 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
+        });
 
         jMenuOperaciones.setText("Operaciones");
 
@@ -83,13 +90,25 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemComprarActionPerformed
 
     private void jMenuItemVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemVenderActionPerformed
-        // TODO add your handling code here:
+        JFrameEmpresas empresa=new JFrameEmpresas();
+        empresa.setVisible(true);
+        this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemVenderActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        
+        HibernateUtil.closeSessionFactory();
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
+        
+        //creo la sesion
+        HibernateUtil.buildSessionFactory();
+        
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
