@@ -7,6 +7,7 @@ package vista;
 
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import java.util.List;
+import javax.swing.DefaultListModel;
 import modelo.Empresa;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -36,13 +37,18 @@ public class JFrameEmpresas extends javax.swing.JFrame {
 
         etiqueta = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jListEmpresas = new javax.swing.JList();
+        JListEmpresas = new javax.swing.JList();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setAlwaysOnTop(true);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowOpened(java.awt.event.WindowEvent evt) {
                 formWindowOpened(evt);
+            }
+            public void windowClosed(java.awt.event.WindowEvent evt) {
+                formWindowClosed(evt);
             }
         });
 
@@ -55,12 +61,14 @@ public class JFrameEmpresas extends javax.swing.JFrame {
             }
         });
 
-        jListEmpresas.setModel(new javax.swing.AbstractListModel() {
+        JListEmpresas.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jListEmpresas);
+        jScrollPane1.setViewportView(JListEmpresas);
+
+        jScrollPane2.setViewportView(jScrollPane1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -71,9 +79,9 @@ public class JFrameEmpresas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(etiqueta, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 138, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(33, 33, 33)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(52, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,9 +93,9 @@ public class JFrameEmpresas extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jButton1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(45, Short.MAX_VALUE))
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         pack();
@@ -95,11 +103,7 @@ public class JFrameEmpresas extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
 
-    }//GEN-LAST:event_formWindowOpened
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        
+        DefaultListModel modelo;
 
          try {
               HibernateUtil.openSessionAndBindToThread();
@@ -108,17 +112,35 @@ public class JFrameEmpresas extends javax.swing.JFrame {
              
             Query query = session.createQuery("SELECT e FROM Empresa e");
             List<Empresa> empresas = query.list();
+            
+            modelo=new DefaultListModel();
             for (Empresa empresa : empresas) {
-                jListEmpresas.addElement(empresa.getNombre());               System.out.println();
+                modelo.addElement(empresa);
             }
+            JListEmpresas.setModel(modelo);
+
+          
             
          } finally {
              HibernateUtil.closeSessionAndUnbindFromThread();
          }
+    }//GEN-LAST:event_formWindowOpened
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        DefaultListModel modelo=(DefaultListModel)JListEmpresas.getModel();
+        Empresa aux=(Empresa)modelo.getElementAt(JListEmpresas.getSelectedIndex());
+        System.out.println(aux.getId());
+        modelo.removeElement(aux);
 
          
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
+        VentanaPrincipal.Ventana.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosed
+
+  
     /**
      * @param args the command line arguments
      */
@@ -153,11 +175,14 @@ public class JFrameEmpresas extends javax.swing.JFrame {
             }
         });
     }
-
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JList JListEmpresas;
     private javax.swing.JLabel etiqueta;
     private javax.swing.JButton jButton1;
-    private javax.swing.JList jListEmpresas;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
