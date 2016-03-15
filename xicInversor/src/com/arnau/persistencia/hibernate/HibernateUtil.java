@@ -52,4 +52,9 @@ public class HibernateUtil {
              sessionFactory.close();
          }
      }
+     
+     public static void crearBD(){
+         Configuration configuration = new Configuration();
+         new org.hibernate.tool.hbm2ddl.SchemaExport(configuration).setOutputFile("script.sql").setDelimiter(";").create(true, false);
+     }
  }
