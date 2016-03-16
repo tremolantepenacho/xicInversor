@@ -17,6 +17,8 @@ import org.hibernate.validator.constraints.NotEmpty;
  * @fecha 14/03/2016 12:39:19
  * @company DAM
  */
+@Entity
+@Table(name="Dividendo")
 public class Dividendo implements Serializable{
     
     @Id
