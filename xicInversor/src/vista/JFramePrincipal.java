@@ -34,7 +34,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuOperaciones = new javax.swing.JMenu();
         jMenuItemComprar = new javax.swing.JMenuItem();
         jMenuItemVender = new javax.swing.JMenuItem();
-        jMenu2 = new javax.swing.JMenu();
+        jMenuInsertar = new javax.swing.JMenu();
+        jMenuItemInsertarPais = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -63,8 +64,17 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
         jMenuBar1.add(jMenuOperaciones);
 
-        jMenu2.setText("Edit");
-        jMenuBar1.add(jMenu2);
+        jMenuInsertar.setText("Insertar");
+
+        jMenuItemInsertarPais.setText("Pais");
+        jMenuItemInsertarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInsertarPaisActionPerformed(evt);
+            }
+        });
+        jMenuInsertar.add(jMenuItemInsertarPais);
+
+        jMenuBar1.add(jMenuInsertar);
 
         setJMenuBar(jMenuBar1);
 
@@ -100,6 +110,13 @@ public class JFramePrincipal extends javax.swing.JFrame {
         
         HibernateUtil.closeSessionFactory();
     }//GEN-LAST:event_formWindowClosing
+
+    private void jMenuItemInsertarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertarPaisActionPerformed
+        
+        JFramePais pais=new JFramePais();
+        pais.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItemInsertarPaisActionPerformed
 
     /**
      * @param args the command line arguments
@@ -144,9 +161,10 @@ public class JFramePrincipal extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuInsertar;
     private javax.swing.JMenuItem jMenuItemComprar;
+    private javax.swing.JMenuItem jMenuItemInsertarPais;
     private javax.swing.JMenuItem jMenuItemVender;
     private javax.swing.JMenu jMenuOperaciones;
     // End of variables declaration//GEN-END:variables

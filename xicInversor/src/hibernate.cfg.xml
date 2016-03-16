@@ -10,6 +10,11 @@
     <property name="dialect">org.hibernate.dialect.HSQLDialect</property>
     <property name="hibernate.show_sql">true</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
+    <mapping class="modelo.Compra"/>
+    <mapping class="modelo.Dividendo"/>
     <mapping class="modelo.Empresa"/>
+    <mapping class="modelo.Mercado"/>
+    <mapping class="modelo.Pais"/>
+    <mapping class="modelo.Venta"/>
   </session-factory>
 </hibernate-configuration>

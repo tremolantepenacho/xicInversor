@@ -30,7 +30,6 @@ public class Mercado implements Serializable {
     @NotEmpty(message="El nombre es obligatorio")
     private String nombre;
     
-    @Column(name="Pais")
     @OneToOne(cascade=CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Pais pais;

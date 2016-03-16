@@ -34,7 +34,6 @@ public class Empresa implements Serializable{
     @Column(name="Cantidad")
     private int cantidad;
      
-    @Column(name="Pais")
     @OneToOne(cascade=CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Pais pais;
@@ -50,7 +49,7 @@ public class Empresa implements Serializable{
     private List<Venta> ventas;
     
     @OneToMany(cascade= CascadeType.ALL)
-    @JoinColumn(name="Dividendo")
+    @JoinColumn(name="Empresa")
     @IndexColumn(name="Fecha")
     private List<Dividendo> dividendos;
      

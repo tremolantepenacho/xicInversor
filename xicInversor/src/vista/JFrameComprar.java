@@ -8,10 +8,7 @@ package vista;
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import modelo.Empresa;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.cfg.Configuration;
-import org.hibernate.service.ServiceRegistry;
 
 /**
  *
@@ -101,7 +98,7 @@ public class JFrameComprar extends javax.swing.JFrame {
 
     private void insertarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_insertarEmpresaActionPerformed
 
-        
+       /* 
 
          try {
              HibernateUtil.openSessionAndBindToThread();
@@ -117,7 +114,7 @@ public class JFrameComprar extends javax.swing.JFrame {
          }
 
          
-        
+      */  
         
     }//GEN-LAST:event_insertarEmpresaActionPerformed
 
@@ -125,6 +122,7 @@ public class JFrameComprar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nombreEmpresaActionPerformed
 
+    
     /**
      * @param args the command line arguments
      */

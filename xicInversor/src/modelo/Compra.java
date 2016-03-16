@@ -38,7 +38,6 @@ public class Compra implements Serializable{
     @NotEmpty(message="La fecha es obligatoria")
     private Date fecha;
      
-    @Column(name="Empresa")
     @OneToOne(cascade=CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Empresa empresa;

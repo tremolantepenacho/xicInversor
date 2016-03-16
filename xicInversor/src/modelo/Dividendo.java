@@ -37,11 +37,11 @@ public class Dividendo implements Serializable{
     @NotEmpty(message="La fecha es obligatoria")
     private Date fecha;
      
-    @Column(name="Empresa")
+  //  @Column(name="Empresa")
     @OneToOne(cascade=CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private Empresa empresa;
-
+    
     public Dividendo() {
     }
 
