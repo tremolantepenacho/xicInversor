@@ -1,6 +1,7 @@
 package vista;
 
 import com.arnau.persistencia.hibernate.HibernateUtil;
+import org.hibernate.Session;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -34,6 +35,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuOperaciones = new javax.swing.JMenu();
         jMenuItemComprar = new javax.swing.JMenuItem();
         jMenuItemVender = new javax.swing.JMenuItem();
+        jMenuItemCrearDB = new javax.swing.JMenuItem();
         jMenuInsertar = new javax.swing.JMenu();
         jMenuItemInsertarPais = new javax.swing.JMenuItem();
 
@@ -61,6 +63,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
         jMenuOperaciones.add(jMenuItemVender);
+
+        jMenuItemCrearDB.setText("Crear base de datos");
+        jMenuItemCrearDB.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemCrearDBActionPerformed(evt);
+            }
+        });
+        jMenuOperaciones.add(jMenuItemCrearDB);
 
         jMenuBar1.add(jMenuOperaciones);
 
@@ -118,6 +128,19 @@ public class JFramePrincipal extends javax.swing.JFrame {
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemInsertarPaisActionPerformed
 
+    private void jMenuItemCrearDBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemCrearDBActionPerformed
+        
+        try {
+             HibernateUtil.openSessionAndBindToThread();
+             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+             HibernateUtil.crearBD();
+            
+         } finally {
+             HibernateUtil.closeSessionAndUnbindFromThread();
+         }
+        
+    }//GEN-LAST:event_jMenuItemCrearDBActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -164,6 +187,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenu jMenuInsertar;
     private javax.swing.JMenuItem jMenuItemComprar;
+    private javax.swing.JMenuItem jMenuItemCrearDB;
     private javax.swing.JMenuItem jMenuItemInsertarPais;
     private javax.swing.JMenuItem jMenuItemVender;
     private javax.swing.JMenu jMenuOperaciones;

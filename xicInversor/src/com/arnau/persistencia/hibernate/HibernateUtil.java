@@ -22,6 +22,7 @@ public class HibernateUtil {
             Configuration configuration = new Configuration();
              configuration.configure();
              configuration.setProperty("hibernate.current_session_context_class", "thread");
+             configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
              ServiceRegistry serviceRegistry = new ServiceRegistryBuilder().applySettings(configuration.getProperties()).buildServiceRegistry();
              sessionFactory = configuration.buildSessionFactory(serviceRegistry);
          }
@@ -54,7 +55,11 @@ public class HibernateUtil {
      }
      
      public static void crearBD(){
-         Configuration configuration = new Configuration();
-         new org.hibernate.tool.hbm2ddl.SchemaExport(configuration).setOutputFile("script.sql").setDelimiter(";").create(true, false);
+          Configuration configuration = new Configuration();
+             configuration.configure();
+             configuration.setProperty("hibernate.current_session_context_class", "thread");
+             configuration.setProperty("hibernate.dialect", "org.hibernate.dialect.HSQLDialect");
+         //Si segundo parámetro del método create está a true, Hibernate crea la BD pero borra los datos
+             new org.hibernate.tool.hbm2ddl.SchemaExport(configuration).setOutputFile("script.sql").setDelimiter(";").create(true, true);
      }
  }

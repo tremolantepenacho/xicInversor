@@ -16,5 +16,5 @@
     <mapping class="modelo.Mercado"/>
     <mapping class="modelo.Pais"/>
     <mapping class="modelo.Venta"/>
-  </session-factory>
+   </session-factory>
 </hibernate-configuration>
