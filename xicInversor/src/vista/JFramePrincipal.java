@@ -123,7 +123,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jMenuItemInsertarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertarPaisActionPerformed
         
-        JFramePais pais=new JFramePais();
+        JFramePais pais=new JFramePais(this);
         pais.setVisible(true);
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemInsertarPaisActionPerformed
