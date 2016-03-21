@@ -157,8 +157,7 @@ public class JFramePais extends JFrame {
              Session session = HibernateUtil.getSessionFactory().getCurrentSession();
              Pais pais=new Pais(jTextFieldNombre.getText());
              Transaction beginTransaction = session.beginTransaction();
-             session.save(pais);
-                
+             session.save(pais);                
              beginTransaction.commit();
             
          } finally {
