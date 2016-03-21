@@ -8,6 +8,7 @@ package vista;
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import javax.swing.JFrame;
 import modelo.Pais;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
@@ -30,9 +31,32 @@ public class JFramePais extends JFrame {
     public JFramePais(JFrame padre) {
             this.padre=padre;
             initComponents();
+            
     }
     
-   
+   private boolean insertarPais(Pais pais){
+       
+       HibernateUtil.openSessionAndBindToThread();
+       Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+       try {
+             
+             
+             Transaction beginTransaction = session.beginTransaction();
+             session.save(pais);                
+             beginTransaction.commit();
+             
+                        
+         } 
+         catch (org.hibernate.exception.ConstraintViolationException cve) {
+             session.getTransaction().rollback();
+             return false;
+         }
+
+       finally {
+             HibernateUtil.closeSessionAndUnbindFromThread();
+         }
+       return true;
+   }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -152,17 +176,15 @@ public class JFramePais extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
-        try {
-             HibernateUtil.openSessionAndBindToThread();
-             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-             Pais pais=new Pais(jTextFieldNombre.getText());
-             Transaction beginTransaction = session.beginTransaction();
-             session.save(pais);                
-             beginTransaction.commit();
-            
-         } finally {
-             HibernateUtil.closeSessionAndUnbindFromThread();
-         }
+        
+        Pais pais=new Pais(jTextFieldNombre.getText());
+        if(insertarPais(pais)){
+            jTextFieldNombre.setText(null);
+        }
+        else {
+            JDialogPaisYaExiste mensaje=new JDialogPaisYaExiste(this,true);
+            mensaje.setVisible(true);
+        }
     }//GEN-LAST:event_jButtonInsertarActionPerformed
 
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
