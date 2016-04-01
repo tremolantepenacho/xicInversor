@@ -5,12 +5,9 @@
  */
 package vista;
 
-import com.arnau.persistencia.hibernate.HibernateUtil;
+import controlador.Controlador;
 import javax.swing.JFrame;
 import modelo.Pais;
-import org.hibernate.Query;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
@@ -34,29 +31,6 @@ public class JFramePais extends JFrame {
             
     }
     
-   private boolean insertarPais(Pais pais){
-       
-       HibernateUtil.openSessionAndBindToThread();
-       Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-       try {
-             
-             
-             Transaction beginTransaction = session.beginTransaction();
-             session.save(pais);                
-             beginTransaction.commit();
-             
-                        
-         } 
-         catch (org.hibernate.exception.ConstraintViolationException cve) {
-             session.getTransaction().rollback();
-             return false;
-         }
-
-       finally {
-             HibernateUtil.closeSessionAndUnbindFromThread();
-         }
-       return true;
-   }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,6 +48,7 @@ public class JFramePais extends JFrame {
         jButtonInsertar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
 
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Inserta un pais");
         setAlwaysOnTop(true);
         setResizable(false);
@@ -178,7 +153,7 @@ public class JFramePais extends JFrame {
     private void jButtonInsertarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonInsertarActionPerformed
         
         Pais pais=new Pais(jTextFieldNombre.getText());
-        if(insertarPais(pais)){
+        if(Controlador.insertarPais(pais)){
             jTextFieldNombre.setText(null);
         }
         else {
@@ -192,12 +167,14 @@ public class JFramePais extends JFrame {
     }//GEN-LAST:event_jButtonBorrarActionPerformed
 
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
-
+        setVisible(false);
         padre.setEnabled(true);
+        dispose();
     }//GEN-LAST:event_jButtonCancelarActionPerformed
 
     private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-       padre.setEnabled(true);
+        padre.setEnabled(true);
+          
     }//GEN-LAST:event_formWindowClosing
 
     /**

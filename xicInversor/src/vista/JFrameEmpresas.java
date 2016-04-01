@@ -11,7 +11,6 @@ import javax.swing.DefaultListModel;
 import modelo.Empresa;
 import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 /**
  *
