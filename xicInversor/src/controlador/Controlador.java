@@ -39,14 +39,14 @@ public class Controlador {
         return true;
     }
     
-    public static Object ejecutarConsultaAgrupada(String consulta){
+    public static Long ejecutarConsultaAgrupada(String consulta){
         
          HibernateUtil.openSessionAndBindToThread();
          Session session = HibernateUtil.getSessionFactory().getCurrentSession();
          Query aux;
         try {
            
-            return session.createQuery(consulta).uniqueResult();
+            return (long)session.createQuery(consulta).uniqueResult();
           
             
             

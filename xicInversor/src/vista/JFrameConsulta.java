@@ -6,6 +6,7 @@
 package vista;
 
 import com.arnau.persistencia.hibernate.HibernateUtil;
+import controlador.Controlador;
 import java.util.List;
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -89,18 +90,7 @@ public class JFrameConsulta extends javax.swing.JFrame {
 
     private void jButtonEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjecutarActionPerformed
 
-        try {
-              HibernateUtil.openSessionAndBindToThread();
-
-             Session session = HibernateUtil.getSessionFactory().getCurrentSession();
-             
-            Query query = session.createQuery("SELECT COUNT(p) FROM Pais p WHERE nombre='paisinexistente'");
-           
-                  jTextFieldResultado.setText(""+query.uniqueResult());
-            
-         } finally {
-             HibernateUtil.closeSessionAndUnbindFromThread();
-         }
+        Controlador.ejecutarConsulta("Select p from Pais p");
     }//GEN-LAST:event_jButtonEjecutarActionPerformed
 
     /**

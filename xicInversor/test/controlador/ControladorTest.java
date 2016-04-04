@@ -7,6 +7,7 @@ package controlador;
 
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import java.util.Date;
+import java.util.List;
 import modelo.Pais;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -38,17 +39,12 @@ public class ControladorTest {
         paisValido=new Pais(new Date().toString()+"a");
         
        Controlador.iniciaHibernate();
-      //  HibernateUtil.openSessionAndBindToThread();
-       // session = HibernateUtil.getSessionFactory().getCurrentSession();
+      
     }
     
     @AfterClass
     public static void tearDownClass() {
-        
-    /*    Transaction beginTransaction = session.beginTransaction();
-        session.delete(paisRepetido);                
-        beginTransaction.commit();
-      */  
+    
         HibernateUtil.closeSessionAndUnbindFromThread();
         HibernateUtil.closeSessionFactory();        
         
@@ -68,19 +64,49 @@ public class ControladorTest {
      */
     @Test
     public void testEjecutarConsultaAgrupadaCorrecta(){
-        long resultado=(long)Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p");
-        Assert.assertEquals(18, resultado);         
+        long resultado=Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p WHERE nombre='Torrent'");
+        assertEquals(1, resultado);         
    
         
     }
     @Test
     public void testEjecutarConsultaAgrupadaVacia(){
-        long resultado=(long)Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p WHERE nombre='paisinexistente"+new Date().toString()+"'");
-        Assert.assertEquals(0, resultado);   
+        long resultado=Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p WHERE nombre='paisinexistente"+new Date().toString()+"'");
+        assertEquals(0, resultado);   
           
    
         
     }
+
+    /**
+     * Test of iniciaHibernate method, of class Controlador.
+     */
+    @Test
+    public void testIniciaHibernate() {
+       Assert.assertNotNull(HibernateUtil.getSessionFactory());
+    }
+
+   
+    /**
+     * Test of ejecutarConsulta method, of class Controlador.
+     */
+    @Test
+    public void testEjecutarConsultaVacia() {
+        List resultado=Controlador.ejecutarConsulta("SELECT p FROM Pais p WHERE nombre='paiscacacaca'");
+        assertTrue(resultado.isEmpty()==true);
+      
+    }
+    
+    /**
+     * Test of ejecutarConsulta method, of class Controlador.
+     */
+    @Test
+    public void testEjecutarConsultaCorrecta() {
+        List resultado=Controlador.ejecutarConsulta("SELECT pa FROM Pais WHERE nombre='Torrent'");
+        assertEquals(resultado.get(0).toString(),"Torrent");
+      
+    }
+    
     /**
      * Test of insertarPais method, of class Controlador.
      */
