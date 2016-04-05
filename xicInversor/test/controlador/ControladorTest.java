@@ -8,10 +8,9 @@ package controlador;
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import java.util.Date;
 import java.util.List;
+import modelo.Empresa;
 import modelo.Pais;
-import org.hibernate.Query;
 import org.hibernate.Session;
-import org.hibernate.Transaction;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Assert;
@@ -102,77 +101,74 @@ public class ControladorTest {
      */
     @Test
     public void testEjecutarConsultaCorrecta() {
-        List resultado=Controlador.ejecutarConsulta("SELECT pa FROM Pais WHERE nombre='Torrent'");
-        assertEquals(resultado.get(0).toString(),"Torrent");
+        List resultado=Controlador.ejecutarConsulta("SELECT pa FROM Pais pa WHERE nombre='Torrent'");
+        assertEquals(((Pais)resultado.get(0)).getNombre(),"Torrent");
       
     }
     
     /**
      * Test of insertarPais method, of class Controlador.
      */
-   /* @Test
-    public void testInsertarPais() {
-        Query query = session.createQuery("SELECT COUNT(p) FROM Pais p");
-        long antes=(long)query.uniqueResult();
-        Controlador.insertarPais(paisValido);
-       // Transaction beginTransaction = session.beginTransaction();
-        //session.save(paisValido);                
-        //beginTransaction.commit();
-        session = HibernateUtil.getSessionFactory().getCurrentSession();
-        query = session.createQuery("SELECT COUNT(p) FROM Pais p");
-        long despues=(long)query.uniqueResult();
-        Assert.assertEquals(antes+1, despues);
-        session.delete(paisValido);
-    }
-    */
-}
-
-
-
-    
-    
-    
-    
-    
-       
-        
-   
-
-    
-    /*
-     * Inserto un pais, cuento cuantos hay, lo vuelvo a insertar, compruebo que no se inserte
-     * y lo borro para dejar la BD igual que antes
-    */
-   /* @Test
-    public void testInsertaPaisRepetido(){
-                
-        Transaction beginTransaction = session.beginTransaction();
-        session.save(paisRepetido); 
-        Query query = session.createQuery("SELECT COUNT(p) FROM Pais p");
-        long antes=(long)query.uniqueResult();
-        session.save(paisRepetido);                
-        beginTransaction.commit();
-        long despues=(long)query.uniqueResult();
-        Assert.assertEquals(antes, despues);
-        session.delete(paisRepetido);
-     
-        
-    }
-    
     @Test
-    public void testInsertaPais(){
+    public void testInsertarPaisValido() {
         
-        Query query = session.createQuery("SELECT COUNT(p) FROM Pais p");
-        long antes=(long)query.uniqueResult();
-        Transaction beginTransaction = session.beginTransaction();
-        session.save(paisValido);                
-        beginTransaction.commit();
-        long despues=(long)query.uniqueResult();
+        long antes=Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p");
+        Controlador.insertarPais(paisValido);
+        long despues=Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p");
         Assert.assertEquals(antes+1, despues);
-        session.delete(paisValido);
-     
-        
+        Controlador.borrarPais(paisValido);
     }
     
+    /**
+     * Test of insertarPais method, of class Controlador.
+     */
+    @Test
+    public void testInsertarPaisRepetido() {
+        
+        Controlador.insertarPais(paisValido);
+        assertFalse(Controlador.insertarPais(paisValido));
+        Controlador.borrarPais(paisValido);
+    }
+
+    /**
+     * Test of insertarPais method, of class Controlador.
+     */
+    @Test
+    public void testInsertarPais() {
+        System.out.println("insertarPais");
+        Pais pais = null;
+        boolean expResult = false;
+        boolean result = Controlador.insertarPais(pais);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of borrarPais method, of class Controlador.
+     */
+    @Test
+    public void testBorrarPais() {
+        System.out.println("borrarPais");
+        Pais pais = null;
+        boolean expResult = false;
+        boolean result = Controlador.borrarPais(pais);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
+
+    /**
+     * Test of insertarEmpresa method, of class Controlador.
+     */
+    @Test
+    public void testInsertarEmpresa() {
+        System.out.println("insertarEmpresa");
+        Empresa empr = null;
+        boolean expResult = false;
+        boolean result = Controlador.insertarEmpresa(empr);
+        assertEquals(expResult, result);
+        // TODO review the generated test code and remove the default call to fail.
+        fail("The test case is a prototype.");
+    }
 }
-*/

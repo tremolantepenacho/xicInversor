@@ -7,6 +7,7 @@ package controlador;
 
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import java.util.List;
+import modelo.Empresa;
 import modelo.Pais;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -29,6 +30,39 @@ public class Controlador {
         try {
             Transaction beginTransaction = session.beginTransaction();
             session.save(pais);
+            beginTransaction.commit();
+        } catch (ConstraintViolationException cve) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            HibernateUtil.closeSessionAndUnbindFromThread();
+        }
+        return true;
+    }
+    
+    public static boolean borrarPais(Pais pais){
+        
+        HibernateUtil.openSessionAndBindToThread();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            Transaction beginTransaction = session.beginTransaction();
+            session.delete(pais);
+            beginTransaction.commit();
+        } catch (ConstraintViolationException cve) {
+            session.getTransaction().rollback();
+            return false;
+        } finally {
+            HibernateUtil.closeSessionAndUnbindFromThread();
+        }
+        return true;
+    }
+    
+    public static boolean insertarEmpresa(Empresa empr) {
+        HibernateUtil.openSessionAndBindToThread();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            Transaction beginTransaction = session.beginTransaction();
+            session.save(empr);
             beginTransaction.commit();
         } catch (ConstraintViolationException cve) {
             session.getTransaction().rollback();
