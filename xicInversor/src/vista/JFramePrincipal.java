@@ -41,6 +41,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuItemInsertarPais = new javax.swing.JMenuItem();
         jMenuBorrar = new javax.swing.JMenu();
         jMenuItemBorrarPais = new javax.swing.JMenuItem();
+        jMenuModificar = new javax.swing.JMenu();
+        jMenuItemModificarPais = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -108,6 +110,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuBorrar.add(jMenuItemBorrarPais);
 
         jMenuBar1.add(jMenuBorrar);
+
+        jMenuModificar.setText("Modificar");
+
+        jMenuItemModificarPais.setText("Pais");
+        jMenuItemModificarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemModificarPaisActionPerformed(evt);
+            }
+        });
+        jMenuModificar.add(jMenuItemModificarPais);
+
+        jMenuBar1.add(jMenuModificar);
 
         setJMenuBar(jMenuBar1);
 
@@ -177,6 +191,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemBorrarPaisActionPerformed
 
+    private void jMenuItemModificarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemModificarPaisActionPerformed
+        JFrameModificarPais pais=new JFrameModificarPais(this);
+        pais.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItemModificarPaisActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -228,7 +248,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemConsulta;
     private javax.swing.JMenuItem jMenuItemCrearDB;
     private javax.swing.JMenuItem jMenuItemInsertarPais;
+    private javax.swing.JMenuItem jMenuItemModificarPais;
     private javax.swing.JMenuItem jMenuItemVender;
+    private javax.swing.JMenu jMenuModificar;
     private javax.swing.JMenu jMenuOperaciones;
     // End of variables declaration//GEN-END:variables
 }

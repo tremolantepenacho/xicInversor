@@ -150,8 +150,7 @@ public class ControladorTest {
      */
     @Test
     public void testBorrarPaisInexistente() {
-        System.out.println(Controlador.borrarPais(new Pais("fdgpfdgkdp"+new Date().toString())));
-        assertFalse(Controlador.borrarPais(new Pais("fdgpfdgkdp"+new Date().toString())));
+        assertNull(Controlador.borrarPais(new Pais("fdgpfdgkdp"+new Date().toString())));
              
     }
 

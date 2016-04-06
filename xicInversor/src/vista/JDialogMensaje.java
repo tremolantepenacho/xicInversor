@@ -17,7 +17,7 @@ import javax.swing.KeyStroke;
  *
  * @author Hector Arnau Aparicio
  */
-public class JDialogPaisYaExiste extends javax.swing.JDialog {
+public class JDialogMensaje extends javax.swing.JDialog {
 
     /**
      * A return status code - returned if Cancel button has been pressed
@@ -30,11 +30,16 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
 
     /**
      * Creates new form NewOkCancelDialo
+     * @param parent La ventana padre a la que se devuelve el control
+     * @param modal El modo en el que se visualiza el dialogo
+     * @param mensaje El mensaje que se muestra en el JLabel
      */
-    public JDialogPaisYaExiste(java.awt.Frame parent, boolean modal) {
+    public JDialogMensaje(java.awt.Frame parent, boolean modal, String mensaje) {
         super(parent, modal);
+      
         initComponents();
-
+        jLabelMensaje.setText(mensaje);
+        
         // Close the dialog when Esc is pressed
         String cancelName = "cancel";
         InputMap inputMap = getRootPane().getInputMap(JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -64,7 +69,7 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
     private void initComponents() {
 
         ButtonAceptar = new javax.swing.JButton();
-        jLabelPaisInsertado = new javax.swing.JLabel();
+        jLabelMensaje = new javax.swing.JLabel();
 
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
@@ -79,7 +84,7 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
             }
         });
 
-        jLabelPaisInsertado.setText("El pais que quieres insertar ya existe");
+        jLabelMensaje.setText("El pais que quieres insertar ya existe");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -88,19 +93,19 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(jLabelPaisInsertado))
+                        .addGap(126, 126, 126)
+                        .addComponent(ButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(94, 94, 94)
-                        .addComponent(ButtonAceptar, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(47, 47, 47)
+                        .addComponent(jLabelMensaje)))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabelPaisInsertado)
-                .addGap(18, 18, 18)
+                .addContainerGap()
+                .addComponent(jLabelMensaje)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(ButtonAceptar)
                 .addGap(27, 27, 27))
         );
@@ -144,14 +149,18 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JDialogPaisYaExiste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogMensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JDialogPaisYaExiste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogMensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JDialogPaisYaExiste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogMensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JDialogPaisYaExiste.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JDialogMensaje.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -160,7 +169,7 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
         /* Create and display the dialog */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                JDialogPaisYaExiste dialog = new JDialogPaisYaExiste(new javax.swing.JFrame(), true);
+                JDialogMensaje dialog = new JDialogMensaje(new javax.swing.JFrame(), true,null);
                 dialog.addWindowListener(new java.awt.event.WindowAdapter() {
                     @Override
                     public void windowClosing(java.awt.event.WindowEvent e) {
@@ -174,7 +183,7 @@ public class JDialogPaisYaExiste extends javax.swing.JDialog {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton ButtonAceptar;
-    private javax.swing.JLabel jLabelPaisInsertado;
+    protected javax.swing.JLabel jLabelMensaje;
     // End of variables declaration//GEN-END:variables
 
     private int returnStatus = RET_CANCEL;

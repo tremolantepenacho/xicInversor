@@ -113,6 +113,25 @@ public class Controlador {
         return true;
     }
     
+    public static boolean modificarPais(Pais pais){
+        HibernateUtil.openSessionAndBindToThread();
+        Session session = HibernateUtil.getSessionFactory().getCurrentSession();
+        try {
+            Transaction beginTransaction = session.beginTransaction();
+            session.update(pais);
+            return true;
+            
+         } 
+        catch (Exception e) {
+            return false;
+        }
+        finally {
+            HibernateUtil.closeSessionAndUnbindFromThread();
+         }
+        
+        
+    }
+    
     public static boolean insertarEmpresa(Empresa empr) {
         HibernateUtil.openSessionAndBindToThread();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();

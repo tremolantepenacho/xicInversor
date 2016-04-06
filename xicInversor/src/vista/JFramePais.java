@@ -157,7 +157,7 @@ public class JFramePais extends JFrame {
             jTextFieldNombre.setText(null);
         }
         else {
-            JDialogPaisYaExiste mensaje=new JDialogPaisYaExiste(this,true);
+            JDialogMensaje mensaje=new JDialogMensaje(this,true,"El pais que quieres insertar ya existe");
             mensaje.setVisible(true);
         }
     }//GEN-LAST:event_jButtonInsertarActionPerformed
