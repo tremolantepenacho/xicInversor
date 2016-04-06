@@ -5,11 +5,6 @@
  */
 package vista;
 
-import com.arnau.persistencia.hibernate.HibernateUtil;
-import modelo.Empresa;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
-
 /**
  *
  * @author Héctor Arnau

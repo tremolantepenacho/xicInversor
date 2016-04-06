@@ -130,39 +130,36 @@ public class ControladorTest {
         Controlador.borrarPais(paisValido);
     }
 
-    /**
-     * Test of insertarPais method, of class Controlador.
-     */
-    @Test
-    public void testInsertarPais() {
-        System.out.println("insertarPais");
-        Pais pais = null;
-        boolean expResult = false;
-        boolean result = Controlador.insertarPais(pais);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
+   
     /**
      * Test of borrarPais method, of class Controlador.
      */
     @Test
-    public void testBorrarPais() {
-        System.out.println("borrarPais");
-        Pais pais = null;
-        boolean expResult = false;
-        boolean result = Controlador.borrarPais(pais);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+    public void testBorrarPaisExistente() {
+        Controlador.insertarPais(paisValido);
+        long result=Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p WHERE nombre='"+paisValido.getNombre()+"'");
+        assertEquals(1,result);
+        assertTrue(Controlador.borrarPais(paisValido));
+        result=Controlador.ejecutarConsultaAgrupada("SELECT COUNT(p) FROM Pais p WHERE nombre='"+paisValido.getNombre()+"'");
+        assertEquals(0,result);
+        
+    }
+    
+     /**
+     * Test of borrarPais method, of class Controlador.
+     */
+    @Test
+    public void testBorrarPaisInexistente() {
+        System.out.println(Controlador.borrarPais(new Pais("fdgpfdgkdp"+new Date().toString())));
+        assertFalse(Controlador.borrarPais(new Pais("fdgpfdgkdp"+new Date().toString())));
+             
     }
 
     /**
      * Test of insertarEmpresa method, of class Controlador.
      */
     @Test
-    public void testInsertarEmpresa() {
+    public void testInsertarEmpresaValida() {
         System.out.println("insertarEmpresa");
         Empresa empr = null;
         boolean expResult = false;

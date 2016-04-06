@@ -39,6 +39,8 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuItemConsulta = new javax.swing.JMenuItem();
         jMenuInsertar = new javax.swing.JMenu();
         jMenuItemInsertarPais = new javax.swing.JMenuItem();
+        jMenuBorrar = new javax.swing.JMenu();
+        jMenuItemBorrarPais = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -94,6 +96,18 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuInsertar.add(jMenuItemInsertarPais);
 
         jMenuBar1.add(jMenuInsertar);
+
+        jMenuBorrar.setText("Borrar");
+
+        jMenuItemBorrarPais.setText("Pais");
+        jMenuItemBorrarPais.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemBorrarPaisActionPerformed(evt);
+            }
+        });
+        jMenuBorrar.add(jMenuItemBorrarPais);
+
+        jMenuBar1.add(jMenuBorrar);
 
         setJMenuBar(jMenuBar1);
 
@@ -157,6 +171,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemConsultaActionPerformed
 
+    private void jMenuItemBorrarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemBorrarPaisActionPerformed
+        JFrameBorrarPais pais=new JFrameBorrarPais(this);
+        pais.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItemBorrarPaisActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -201,7 +221,9 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenu jMenuBorrar;
     private javax.swing.JMenu jMenuInsertar;
+    private javax.swing.JMenuItem jMenuItemBorrarPais;
     private javax.swing.JMenuItem jMenuItemComprar;
     private javax.swing.JMenuItem jMenuItemConsulta;
     private javax.swing.JMenuItem jMenuItemCrearDB;
