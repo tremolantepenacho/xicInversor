@@ -25,7 +25,7 @@ import static org.junit.Assert.*;
  */
 public class ControladorTest {
     
-    static Pais paisRepetido, paisValido;
+    static Pais paisRepetido, paisValido, paisNoInsertado;
     static Session session;
     
     public ControladorTest() {
@@ -36,6 +36,7 @@ public class ControladorTest {
         
         paisRepetido=new Pais(new Date().toString());
         paisValido=new Pais(new Date().toString()+"a");
+        paisNoInsertado=new Pais(new Date().toString()+"aaa");
         
        Controlador.iniciaHibernate();
       
@@ -150,21 +151,10 @@ public class ControladorTest {
      */
     @Test
     public void testBorrarPaisInexistente() {
-        assertNull(Controlador.borrarPais(new Pais("fdgpfdgkdp"+new Date().toString())));
+        System.out.println("pepe"+Controlador.borrarPais(paisNoInsertado));
+        assertFalse(Controlador.borrarPais(paisNoInsertado));
              
     }
 
-    /**
-     * Test of insertarEmpresa method, of class Controlador.
-     */
-    @Test
-    public void testInsertarEmpresaValida() {
-        System.out.println("insertarEmpresa");
-        Empresa empr = null;
-        boolean expResult = false;
-        boolean result = Controlador.insertarEmpresa(empr);
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+    
 }
