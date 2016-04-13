@@ -36,7 +36,7 @@ public class ControladorTest {
         
         paisRepetido=new Pais(new Date().toString());
         paisValido=new Pais(new Date().toString()+"a");
-        paisNoInsertado=new Pais(new Date().toString()+"aaa");
+        paisNoInsertado=new Pais("fdhgd hfghfdng uj7 876 ");
         
        Controlador.iniciaHibernate();
       

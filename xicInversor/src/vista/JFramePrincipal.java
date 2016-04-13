@@ -1,7 +1,11 @@
 package vista;
 
+import vista.pais.JFrameModificarPais;
+import vista.pais.JFrameBorrarPais;
+import vista.pais.JFrameInsertarPais;
 import com.arnau.persistencia.hibernate.HibernateUtil;
 import org.hibernate.Session;
+import vista.empresa.JFrameInsertarEmpresa;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -39,6 +43,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
         jMenuItemConsulta = new javax.swing.JMenuItem();
         jMenuInsertar = new javax.swing.JMenu();
         jMenuItemInsertarPais = new javax.swing.JMenuItem();
+        jMenuItemInsertarEmpresa = new javax.swing.JMenuItem();
         jMenuBorrar = new javax.swing.JMenu();
         jMenuItemBorrarPais = new javax.swing.JMenuItem();
         jMenuModificar = new javax.swing.JMenu();
@@ -96,6 +101,14 @@ public class JFramePrincipal extends javax.swing.JFrame {
             }
         });
         jMenuInsertar.add(jMenuItemInsertarPais);
+
+        jMenuItemInsertarEmpresa.setText("Empresa");
+        jMenuItemInsertarEmpresa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItemInsertarEmpresaActionPerformed(evt);
+            }
+        });
+        jMenuInsertar.add(jMenuItemInsertarEmpresa);
 
         jMenuBar1.add(jMenuInsertar);
 
@@ -160,7 +173,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
 
     private void jMenuItemInsertarPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertarPaisActionPerformed
         
-        JFramePais pais=new JFramePais(this);
+        JFrameInsertarPais pais=new JFrameInsertarPais(this);
         pais.setVisible(true);
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemInsertarPaisActionPerformed
@@ -196,6 +209,12 @@ public class JFramePrincipal extends javax.swing.JFrame {
         pais.setVisible(true);
         this.setEnabled(false);
     }//GEN-LAST:event_jMenuItemModificarPaisActionPerformed
+
+    private void jMenuItemInsertarEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemInsertarEmpresaActionPerformed
+        JFrameInsertarEmpresa empresa=new JFrameInsertarEmpresa(this);
+        empresa.setVisible(true);
+        this.setEnabled(false);
+    }//GEN-LAST:event_jMenuItemInsertarEmpresaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -247,6 +266,7 @@ public class JFramePrincipal extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItemComprar;
     private javax.swing.JMenuItem jMenuItemConsulta;
     private javax.swing.JMenuItem jMenuItemCrearDB;
+    private javax.swing.JMenuItem jMenuItemInsertarEmpresa;
     private javax.swing.JMenuItem jMenuItemInsertarPais;
     private javax.swing.JMenuItem jMenuItemModificarPais;
     private javax.swing.JMenuItem jMenuItemVender;

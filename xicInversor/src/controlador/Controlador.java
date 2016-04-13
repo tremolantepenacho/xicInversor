@@ -93,9 +93,7 @@ public class Controlador {
         
     }
     public static boolean borrarPais(Pais pais){
-        
-        
-        System.out.println("oooooooooooooooo"+pais.getNombre());
+               
         HibernateUtil.openSessionAndBindToThread();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
@@ -112,7 +110,6 @@ public class Controlador {
         finally {
             HibernateUtil.closeSessionAndUnbindFromThread();
         }
-        System.out.println("++++true");
         return true;
     }
     
@@ -135,12 +132,13 @@ public class Controlador {
         
     }
     
-    public static boolean insertarEmpresa(Empresa empr) {
+       
+    public static boolean insertarEmpresa(Empresa empresa) {
         HibernateUtil.openSessionAndBindToThread();
         Session session = HibernateUtil.getSessionFactory().getCurrentSession();
         try {
             Transaction beginTransaction = session.beginTransaction();
-            session.save(empr);
+            session.save(empresa);
             beginTransaction.commit();
         } catch (ConstraintViolationException cve) {
             session.getTransaction().rollback();

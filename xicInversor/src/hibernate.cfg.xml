@@ -13,7 +13,6 @@
     <mapping class="modelo.Compra"/>
     <mapping class="modelo.Dividendo"/>
     <mapping class="modelo.Empresa"/>
-    <mapping class="modelo.Mercado"/>
     <mapping class="modelo.Pais"/>
     <mapping class="modelo.Venta"/>
    </session-factory>

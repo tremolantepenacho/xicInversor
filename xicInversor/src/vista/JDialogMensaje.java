@@ -84,7 +84,7 @@ public class JDialogMensaje extends javax.swing.JDialog {
             }
         });
 
-        jLabelMensaje.setText("El pais que quieres insertar ya existe");
+        jLabelMensaje.setText("Mensaje de relleno");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -98,7 +98,7 @@ public class JDialogMensaje extends javax.swing.JDialog {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(47, 47, 47)
                         .addComponent(jLabelMensaje)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                .addContainerGap(155, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

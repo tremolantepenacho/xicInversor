@@ -57,7 +57,15 @@ public class Empresa implements Serializable{
         
     }
 
-   
+    /**
+     *
+     * @param nombre
+     */
+    public Empresa(String nombre) {
+        this.nombre = nombre;
+        this.cantidad = 0;
+    }
+    
     public Empresa(String nombre, int cantidad, Pais pais) {
         this.nombre = nombre;
         this.cantidad = cantidad;

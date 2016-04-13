@@ -3,29 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vista;
+package vista.pais;
 
 import controlador.Controlador;
 import javax.swing.JFrame;
 import modelo.Pais;
+import vista.JDialogMensaje;
 
 /**
  *
  * @author Héctor Arnau
  */
-public class JFramePais extends JFrame {
+public class JFrameInsertarPais extends JFrame {
 
     private final JFrame padre;
     /**
      * Creates new form JFramePais
      */
-    public JFramePais() {
+    public JFrameInsertarPais() {
            initComponents();
            padre=null;
     }
 
     
-    public JFramePais(JFrame padre) {
+    public JFrameInsertarPais(JFrame padre) {
             this.padre=padre;
             initComponents();
             
@@ -194,21 +195,22 @@ public class JFramePais extends JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(JFramePais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameInsertarPais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(JFramePais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameInsertarPais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(JFramePais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameInsertarPais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(JFramePais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(JFrameInsertarPais.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new JFramePais().setVisible(true);
+                new JFrameInsertarPais().setVisible(true);
             }
         });
     }
