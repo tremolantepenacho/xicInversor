@@ -13,6 +13,7 @@ import modelo.Empresa;
 import modelo.Pais;
 import vista.JDialogMensaje;
 import vista.pais.JFrameInsertarPais;
+import java.util.Vector;
 
 /**
  *
@@ -50,15 +51,11 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
         jLabelNombre = new javax.swing.JLabel();
         jTextFieldNombre = new javax.swing.JTextField();
         jButtonInsertar = new javax.swing.JButton();
-        jButtonBorrar = new javax.swing.JButton();
         jButtonCancelar = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jComboBoxPaises = new javax.swing.JComboBox();
         List<Pais> paises = Controlador.ejecutarConsulta("SELECT p FROM Pais p ORDER BY nombre");
-        DefaultComboBoxModel modelo=new DefaultComboBoxModel();
-        for (Pais pais : paises) {
-            modelo.addElement(pais.getNombre());
-        }
+        DefaultComboBoxModel modelo=new DefaultComboBoxModel(new Vector(paises));
         jButtonInsertarPais = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -77,13 +74,6 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
         jButtonInsertar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonInsertarActionPerformed(evt);
-            }
-        });
-
-        jButtonBorrar.setText("Borrar");
-        jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonBorrarActionPerformed(evt);
             }
         });
 
@@ -117,19 +107,18 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTextFieldNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(145, 145, 145)
+                        .addComponent(jButtonInsertar)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jComboBoxPaises, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jButtonInsertarPais))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(76, 76, 76)
-                        .addComponent(jButtonInsertar)
-                        .addGap(68, 68, 68)
-                        .addComponent(jButtonBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56)
-                        .addComponent(jButtonCancelar)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jButtonCancelar))
+                .addContainerGap(95, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -144,7 +133,6 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonInsertar)
-                    .addComponent(jButtonBorrar)
                     .addComponent(jButtonCancelar))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -167,10 +155,6 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButtonInsertarActionPerformed
 
-    private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
-         jTextFieldNombre.setText(null);
-    }//GEN-LAST:event_jButtonBorrarActionPerformed
-
     private void jButtonCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelarActionPerformed
         setVisible(false);
         padre.setEnabled(true);
@@ -186,10 +170,7 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
     private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
         
         List<Pais> paises = Controlador.ejecutarConsulta("SELECT p FROM Pais p ORDER BY nombre");
-        DefaultComboBoxModel modelo=new DefaultComboBoxModel();
-        for (Pais pais : paises) {
-            modelo.addElement(pais.getNombre());
-        }
+        DefaultComboBoxModel modelo=new DefaultComboBoxModel(new Vector(paises));
         jComboBoxPaises.setModel(modelo);
     }//GEN-LAST:event_formWindowActivated
 
@@ -229,7 +210,6 @@ public class JFrameInsertarEmpresa extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButtonBorrar;
     private javax.swing.JButton jButtonCancelar;
     private javax.swing.JButton jButtonInsertar;
     private javax.swing.JButton jButtonInsertarPais;

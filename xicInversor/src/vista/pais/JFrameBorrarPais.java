@@ -6,6 +6,8 @@
 package vista.pais;
 
 import controlador.Controlador;
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
 import modelo.Pais;
 import vista.JDialogMensaje;
@@ -41,23 +43,22 @@ public class JFrameBorrarPais extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        jTextFieldNombrePais = new javax.swing.JTextField();
         jButtonBorrar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jListPaises = new javax.swing.JList();
+        jButtonBorrarTodos = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosed(java.awt.event.WindowEvent evt) {
                 formWindowClosed(evt);
             }
+            public void windowClosing(java.awt.event.WindowEvent evt) {
+                formWindowClosing(evt);
+            }
         });
 
         jLabel1.setText("Pais");
-
-        jTextFieldNombrePais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextFieldNombrePaisActionPerformed(evt);
-            }
-        });
 
         jButtonBorrar.setText("Borrar");
         jButtonBorrar.addActionListener(new java.awt.event.ActionListener() {
@@ -66,44 +67,71 @@ public class JFrameBorrarPais extends javax.swing.JFrame {
             }
         });
 
+        DefaultListModel modelo=new DefaultListModel();
+        List<Pais> paises = Controlador.ejecutarConsulta("SELECT p FROM Pais p ORDER BY nombre");
+        for (Pais pais:paises){
+            modelo.addElement(pais);
+        }
+        jListPaises.setModel(modelo);
+        jScrollPane1.setViewportView(jListPaises);
+
+        jButtonBorrarTodos.setText("Borrar todos");
+        jButtonBorrarTodos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBorrarTodosActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jTextFieldNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(jButtonBorrar)))
-                .addContainerGap(89, Short.MAX_VALUE))
+                        .addComponent(jButtonBorrar)
+                        .addGap(36, 36, 36)
+                        .addComponent(jButtonBorrarTodos)))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGap(27, 27, 27)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jTextFieldNombrePais, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addComponent(jButtonBorrar)
-                .addContainerGap(35, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButtonBorrar)
+                    .addComponent(jButtonBorrarTodos))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextFieldNombrePaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNombrePaisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextFieldNombrePaisActionPerformed
-
     private void jButtonBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarActionPerformed
         // TODO add your handling code here:
       //  Controlador.borrarPais(jTextFieldNombrePais.getText());
+        List<Pais> paises=jListPaises.getSelectedValuesList();
+        for (Pais pais: paises){
+            Controlador.borrarPais(pais);
+            }
+        
+        DefaultListModel modelo=new DefaultListModel();
+        paises = Controlador.ejecutarConsulta("SELECT p FROM Pais p ORDER BY nombre");
+        for (Pais pais:paises){
+            modelo.addElement(pais); 
+        }
+        jListPaises.setModel(modelo);
+    }
+        /*
         Pais res=Controlador.getPais(jTextFieldNombrePais.getText());
         if (res==null){
            JDialogMensaje mensaje=new JDialogMensaje(this,true,"El pais que quieres borrar no existe");
@@ -115,12 +143,29 @@ public class JFrameBorrarPais extends javax.swing.JFrame {
             JDialogMensaje mensaje=new JDialogMensaje(this,true,res.getNombre()+" ha sido borrado");
             mensaje.setVisible(true);
         }
+        
     }//GEN-LAST:event_jButtonBorrarActionPerformed
-
+*/
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
-        padre.setVisible(true);
+      // TODO add your handling code here:
+ 
     }//GEN-LAST:event_formWindowClosed
+
+    private void jButtonBorrarTodosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBorrarTodosActionPerformed
+       NewOkCancelBorrarPais mensaje=new NewOkCancelBorrarPais(this,true);
+       mensaje.setVisible(true);
+       if (mensaje.getReturnStatus()==1){
+           for (int i=0; i<jListPaises.getModel().getSize();i++){
+               Controlador.borrarPais((Pais)jListPaises.getModel().getElementAt(i));
+           }
+           jListPaises.setModel(new DefaultListModel());
+       }
+    }//GEN-LAST:event_jButtonBorrarTodosActionPerformed
+
+    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
+        // TODO add your handling code here:
+        padre.setEnabled(true);
+    }//GEN-LAST:event_formWindowClosing
 
     /**
      * @param args the command line arguments
@@ -151,6 +196,7 @@ public class JFrameBorrarPais extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new JFrameBorrarPais().setVisible(true);
             }
@@ -159,7 +205,9 @@ public class JFrameBorrarPais extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonBorrar;
+    private javax.swing.JButton jButtonBorrarTodos;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextFieldNombrePais;
+    private javax.swing.JList jListPaises;
+    private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

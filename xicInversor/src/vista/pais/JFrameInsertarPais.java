@@ -6,6 +6,7 @@
 package vista.pais;
 
 import controlador.Controlador;
+import java.awt.event.ActionEvent;
 import javax.swing.JFrame;
 import modelo.Pais;
 import vista.JDialogMensaje;
@@ -60,6 +61,12 @@ public class JFrameInsertarPais extends JFrame {
         });
 
         jLabelNombre.setText("Nombre:");
+
+        jTextFieldNombre.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextFieldNombreKeyPressed(evt);
+            }
+        });
 
         jButtonBorrar.setText("Borrar");
         jButtonBorrar.setFocusable(false);
@@ -177,6 +184,12 @@ public class JFrameInsertarPais extends JFrame {
         padre.setEnabled(true);
           
     }//GEN-LAST:event_formWindowClosing
+
+    private void jTextFieldNombreKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextFieldNombreKeyPressed
+        if(evt.getKeyCode()==java.awt.event.KeyEvent.VK_ENTER){
+            jButtonInsertarActionPerformed(null);
+        }
+    }//GEN-LAST:event_jTextFieldNombreKeyPressed
 
     /**
      * @param args the command line arguments
